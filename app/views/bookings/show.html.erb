@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="card mx-2" style="width: 25rem;">
+        <div class="card-header">
+            Booking of: <p class="fw-semibold mb-0"> <%= @booking.room.name %> </p>
+        </div>
+        <div class="card-body">
+            <p> Capacity:
+            
+            </p>
+            <p>Booking details:</p>
+            
+            <p>Starts:
+                <%= @booking.start.strftime("%Y-%m-%d, %H:%M") %>
+            </p>
+            <p>Ends:
+                <%= @booking.end.strftime("%Y-%m-%d, %H:%M") %>
+            </p>
+            <p>Booking purpose:
+                <%= @booking.purpose %>
+            </p>
+        
+            <div class="me-2">
+                <%= link_to "Destroy this booking", @booking, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class:"btn btn-primary" %>
+                <%= link_to "Edit this booking", edit_booking_path, class:"btn btn-primary" %>
+
+            </div>
+        </div>
+    </div>
+</div>

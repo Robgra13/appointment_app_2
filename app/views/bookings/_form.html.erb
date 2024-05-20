@@ -1,0 +1,23 @@
+
+    <%= form_with(model: booking) do |form| %>
+        
+        <div class="mb-3 mt-3">
+            <%= form.label :start, style: "display: block", class:"form-label"%>
+            <%= form.datetime_field :start, class:"form-control", style:"width: 25rem;" %>
+        </div>
+        <div class="mb-3 mt-3">
+            <%= form.label :end, style: "display: block", class:"form-label"%>
+            <%= form.datetime_field :end, class:"form-control", style:"width: 25rem;" %>
+        </div>
+        <div class="mb-3 mt-3">
+            <%= form.label :purpose, style: "display: block", class:"form-label"%>
+            <%= form.text_field :purpose, class:"form-control", style:"width: 25rem;" %>
+        </div>
+        <div class="mb-3 mt-3">
+            <%= form.label :room, style: "display: block", class:"form-label"%>
+            <%= form.collection_select :room_id, Room.all, :id, :name, { prompt: "Select a room" }, class: "form-select", style: "width: 25rem;" %>
+        </div>
+        <div class="mb-3 mt-3">
+            <%= form.submit class:"btn btn-primary" %>
+        </div>
+    <% end %>

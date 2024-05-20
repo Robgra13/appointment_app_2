@@ -1,0 +1,50 @@
+<div class="container">
+    <h2 class="text-center">Room name: <%= @room.name %></h2> 
+
+    <div class="row justify-content-center align-center mt-4">
+        <% if @room.bookings.any? %>
+            <div class="row">
+                <% @room.bookings.each do |booking|%>
+                    <div class="col-md-4">
+                        <div class="card mx-2 my-2" style="width: 20rem;">
+                            <div class="card-header">
+                                Booking of: <p class="fw-semibold mb-0"> <%= @room.name %></p>
+                            </div>
+                            <div class="card-body">
+                                <p> Capacity:
+                                <%= @room.capacity %>
+                                </p>
+                                <p>Booking:</p>
+                                
+                                <p>Starts:
+                                    <%= booking.start.strftime("%Y-%m-%d, %H:%M") %>
+                                </p>
+                                <p>Ends:
+                                    <%= booking.end.strftime("%Y-%m-%d, %H:%M") %>
+                                </p>
+                                <p>Booking purpose:
+                                    <%= booking.purpose %>
+                                </p>
+                                <div class="d-flex">
+                                    <div class="me-2">
+                                        <%= link_to "Destroy this booking", booking, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class:"btn btn-primary btn-sm" %>
+                                    </div>
+                                    <div>
+                                        <%= link_to "Edit this booking", edit_booking_path, class:"btn btn-primary btn-sm" %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        <% else%>
+            <p class="text-center">No bookings yet</p>
+        <% end %>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center mt-5">
+    <%= link_to "Destroy this room", @room, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class:"btn btn-primary me-3" %>
+    <%= link_to "New Booking", new_booking_path, class:"btn btn-primary" %>
+</div>
