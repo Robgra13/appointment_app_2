@@ -10,6 +10,25 @@
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag "application" %>
     
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('chat-submit').onclick = function() {
+        var question = document.getElementById('chat-input').value;
+        fetch('/chat/ask', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          },
+          body: JSON.stringify({ question: question })
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('chat-response').innerText = data.response;
+        });
+      };
+    });
+  </script>
 
   </head>
 
@@ -19,5 +38,10 @@
     <%= render "layouts/navbar" %>
     <%= render 'layouts/flash_messages' %>
     <%= yield %>
+
+    <h1>Chatbot</h1>
+    <input type="text" id="chat-input" placeholder="Ask a question...">
+    <button id="chat-submit">Send</button>
+    <p id="chat-response"></p>
   </body>
 </html>
