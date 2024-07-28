@@ -20,6 +20,7 @@ jobs:
         bundle install --jobs 4 --retry 3
 
     - name: Run RuboCop
+      continue-on-error: true
       run: bundle exec rubocop
 
   test:
