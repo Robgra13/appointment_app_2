@@ -2,10 +2,9 @@ name: CI
 
 on: [push, pull_request]
 
-jobs: 
-  build:
+jobs:
+  rubocop:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -13,24 +12,52 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.2.2'
+        ruby-version: 3.2.2
 
     - name: Install dependencies
       run: |
         gem install bundler
-        bundle install
+        bundle install --jobs 4 --retry 3
+
+    - name: Run RuboCop
+      run: bundle exec rubocop
+
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: appointment_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2.2
+
+    - name: Install dependencies
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
 
     - name: Run Brakeman
       run: bundle exec brakeman
 
-    - name: Run RuboCop
-      continue-on-error: true
-      run: bundle exec rubocop
-
-    - name: Run RSpec tests
+    - name: Run RSpec
       env:
         RAILS_ENV: test
       run: |
-        cp config/database.yml.ci config/database.yml
         bin/rails db:create db:schema:load
         bundle exec rspec
