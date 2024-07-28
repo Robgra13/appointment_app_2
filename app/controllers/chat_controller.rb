@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChatController < ApplicationController
   protect_from_forgery with: :null_session
 
@@ -7,6 +9,6 @@ class ChatController < ApplicationController
     chatbot_service = ChatbotService.new
     response = chatbot_service.handle_question(question)
     Rails.logger.info "Chatbot response: #{response}"
-    render json: { response: response }
+    render json: { response: }
   end
 end
