@@ -1,6 +1,6 @@
 class ChatbotService
   def initialize
-    @client = OpenAI::Client.new
+    @client = OpenAI::Client.new(api_key: ENV['OPENAI_API_KEY'])
   end
 
   def ask_openai(question)

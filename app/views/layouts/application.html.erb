@@ -11,24 +11,25 @@
     <%= javascript_include_tag "application" %>
     
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('chat-submit').onclick = function() {
-        var question = document.getElementById('chat-input').value;
-        fetch('/chat/ask', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-          },
-          body: JSON.stringify({ question: question })
-        })
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('chat-response').innerText = data.response;
-        });
-      };
-    });
-  </script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('chat-submit').onclick = function() {
+          var question = document.getElementById('chat-input').value;
+          fetch('/chat/ask', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ question: question })
+          })
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('chat-response').innerText = data.response;
+          })
+          .catch(error => console.error('Error:', error));
+        };
+      });
+</script>
 
   </head>
 

@@ -1,0 +1,22 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/*'
+    - 'node_modules/**/*'
+    - 'config/**/*'
+  SuggestExtensions: false
+
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-capybara
+
+Rails:
+  Enabled: true
+
+RSpec:
+  Enabled: true
+
+Capybara:
+  Enabled: true
