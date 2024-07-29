@@ -1,0 +1,107 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-3.5-turbo","messages":[{"role":"user","content":"What
+        bookings are there on 2024-07-28?"}],"functions":[{"name":"fetch_room_availability","description":"Fetch
+        the availability of a specific room","parameters":{"type":"object","properties":{"room_name":{"type":"string","description":"The
+        name of the room"}},"required":["room_name"]}},{"name":"fetch_day_availability","description":"Fetch
+        the bookings on a specific day","parameters":{"type":"object","properties":{"day":{"type":"string","format":"date","description":"The
+        date to check bookings for"}},"required":["day"]}}],"function_call":"auto","max_tokens":150}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <API_KEY>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 28 Jul 2024 21:08:21 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Openai-Organization:
+      - user-tvmqyy4hxuvm9njx5meyrhzt
+      Openai-Processing-Ms:
+      - '574'
+      Openai-Version:
+      - '2020-10-01'
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      X-Ratelimit-Limit-Requests:
+      - '10000'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '9998'
+      X-Ratelimit-Remaining-Tokens:
+      - '199838'
+      X-Ratelimit-Reset-Requests:
+      - 16.241s
+      X-Ratelimit-Reset-Tokens:
+      - 48ms
+      X-Request-Id:
+      - req_8bb34f6c730e00a4c50834db0fddc736
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=nN0GJBYOb.AvrTAsOiJ72UsSUsFtU9xXlFEDHRMBCPA-1722200901-1.0.1.1-7IgvTeTOCZMynWziPO1m9t78Lp3pdIyAsk5Zg8Hwlxo9td0ZVKztrongTdLlO28W.deni7QpnG7gCQeXdHTRAg;
+        path=/; expires=Sun, 28-Jul-24 21:38:21 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=zusu4QAr5NHQhiNQHDiorzJeGpaOFDHkthyH3ZgMGJs-1722200901052-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8aa7d80a2f995a4a-VIE
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "id": "chatcmpl-9q5PoNFMeu0hdT8jXbakXVEsjJ6ZA",
+          "object": "chat.completion",
+          "created": 1722200900,
+          "model": "gpt-3.5-turbo-0125",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": null,
+                "function_call": {
+                  "name": "fetch_day_availability",
+                  "arguments": "{\"day\":\"2024-07-28\"}"
+                }
+              },
+              "logprobs": null,
+              "finish_reason": "function_call"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 110,
+            "completion_tokens": 21,
+            "total_tokens": 131
+          },
+          "system_fingerprint": null
+        }
+  recorded_at: Sun, 28 Jul 2024 21:08:21 GMT
+recorded_with: VCR 6.2.0

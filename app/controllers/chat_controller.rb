@@ -7,7 +7,7 @@ class ChatController < ApplicationController
     question = params[:question]
     Rails.logger.info "Received question: #{question}"
     chatbot_service = ChatbotService.new
-    response = chatbot_service.handle_question(question)
+    response = chatbot_service.ask_openai(question)
     Rails.logger.info "Chatbot response: #{response}"
     render json: { response: }
   end

@@ -10,6 +10,7 @@
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag "application" %>
     
+
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('chat-submit').onclick = function() {
@@ -29,7 +30,8 @@
           .catch(error => console.error('Error:', error));
         };
       });
-</script>
+    </script>
+    
 
   </head>
 
@@ -40,9 +42,11 @@
     <%= render 'layouts/flash_messages' %>
     <%= yield %>
 
-    <h1>Chatbot</h1>
-    <input type="text" id="chat-input" placeholder="Ask a question...">
-    <button id="chat-submit">Send</button>
-    <p id="chat-response"></p>
+    <div class="container mt-4 pt-4">
+      <h1>Chatbot</h1>
+      <input type="text" id="chat-input" placeholder="Ask a question...">
+      <button id="chat-submit">Send</button>
+      <p class="mt-3", id="chat-response"></p>
+    </div>
   </body>
 </html>

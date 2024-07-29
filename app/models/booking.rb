@@ -17,11 +17,17 @@ class Booking < ApplicationRecord
   def overlapping_bookings
     Booking.where(room_id:)
            .where.not(id:)
-           .where('(? <= start AND start < ?) OR (? < end AND end <= ?) OR (start <= ? AND ? <= end)', start, self.end, start, self.end, start, start)
+           .where(
+             '(? <= start AND start < ?) OR (? < end AND end <= ?) OR (start <= ? AND ? <= end)',
+             start, self.end, start, self.end, start, start
+           )
   end
 
   def overlapping_with_existing_bookings
     room.bookings.where.not(id:)
-        .where('(? <= start AND start < ?) OR (? < end AND end <= ?) OR (start <= ? AND ? <= end)', start, self.end, start, self.end, start, start)
+        .where(
+          '(? <= start AND start < ?) OR (? < end AND end <= ?) OR (start <= ? AND ? <= end)',
+          start, self.end, start, self.end, start, start
+        )
   end
 end

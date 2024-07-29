@@ -20,3 +20,10 @@ RSpec:
 
 Capybara:
   Enabled: true
+
+Documentation:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
